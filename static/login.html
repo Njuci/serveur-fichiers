@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion · FileHub</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="shell">
+    <section id="login-view" class="login-layout">
+      <div class="intro">
+        <span class="brand-mark">FH</span>
+        <p class="eyebrow">ESPACE PRIVÉ</p>
+        <h1>Vos fichiers,<br><em>simplement.</em></h1>
+        <p class="muted">Un espace sécurisé pour déposer, retrouver et gérer vos documents au quotidien.</p>
+      </div>
+      <form id="login-form" class="login-card" autocomplete="on">
+        <p class="eyebrow">BIENVENUE</p>
+        <h2>Se connecter</h2>
+        <p class="muted form-intro">Accédez à votre espace de travail.</p>
+        <label for="username">Identifiant<input id="username" name="username" autocomplete="username" required></label>
+        <label for="password">Mot de passe<input id="password" name="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit" class="primary full">Se connecter <span aria-hidden="true">→</span></button>
+        <p id="login-error" class="error" role="alert" hidden></p>
+      </form>
+    </section>
+  </main>
+  <script src="/static/login.js"></script>
+</body>
+</html>

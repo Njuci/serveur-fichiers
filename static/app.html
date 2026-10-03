@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FileHub · Espace sécurisé</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="shell">
+    <section id="app-view" class="app-layout">
+      <aside class="sidebar">
+        <div class="brand"><span class="brand-mark small">FH</span><strong>FileHub</strong></div>
+        <nav aria-label="Navigation principale">
+          <button class="nav-item active" data-view="dashboard"><span>⌂</span> Vue d'ensemble</button>
+          <button class="nav-item" data-view="files-view"><span>▣</span> Mes fichiers</button>
+          <button id="users-nav" class="nav-item" data-view="admin-panel" hidden><span>♙</span> Utilisateurs</button>
+        </nav>
+        <div class="sidebar-footer"><span class="status-dot"></span> Service opérationnel</div>
+      </aside>
+      <div class="workspace">
+        <header class="topbar">
+          <div><p class="eyebrow">ESPACE DE TRAVAIL</p><h1 id="view-title">Vue d'ensemble</h1></div>
+          <div class="account"><span id="whoami"></span><span id="live" class="live off">hors ligne</span><button id="logout" type="button" class="secondary">Déconnexion</button></div>
+        </header>
+        <section id="dashboard" class="view-section">
+          <div class="welcome-row"><div><h2>Bonjour, <span id="welcome-name"></span> 👋</h2><p class="muted">Voici un aperçu de votre espace.</p></div><button id="open-upload-dashboard" class="primary" type="button">+ Ajouter un fichier</button></div>
+          <div class="stats-grid">
+            <article class="stat-card"><span class="stat-icon purple">▣</span><span class="stat-label">Fichiers disponibles</span><strong id="file-count">0</strong><small>dans votre espace</small></article>
+            <article class="stat-card"><span class="stat-icon green">↗</span><span class="stat-label">Stockage utilisé</span><strong id="storage-used">0 o</strong><small>fichiers déposés</small></article>
+            <article class="stat-card"><span class="stat-icon orange">◷</span><span class="stat-label">Statut du service</span><strong>En ligne</strong><small>notifications actives</small></article>
+          </div>
+          <div class="card quick-card"><div><h3>Gérez vos documents efficacement</h3><p class="muted">Déposez un fichier pour le rendre disponible aux membres autorisés.</p></div><button id="open-upload-quick" class="secondary" type="button">Téléverser maintenant</button></div>
+        </section>
+        <section id="files-view" class="view-section" hidden>
+          <div class="section-head"><div><p class="eyebrow">VOTRE ESPACE</p><h2>Mes fichiers</h2><p class="muted">Retrouvez tous vos documents au même endroit.</p></div><button id="open-upload" class="primary" type="button">+ Ajouter un fichier</button></div>
+          <p id="app-error" class="error" role="alert" hidden></p>
+          <section class="card table-card"><table><thead><tr><th>Nom du fichier</th><th>Taille</th><th>Modification</th><th>Propriétaire</th><th></th></tr></thead><tbody id="files"></tbody></table><p id="empty" class="empty" hidden>Aucun fichier pour le moment.</p></section>
+        </section>
+        <section id="admin-panel" class="view-section" hidden>
+          <div class="section-head"><div><p class="eyebrow">ADMINISTRATION</p><h2>Utilisateurs</h2><p class="muted">Gérez les comptes autorisés à accéder à FileHub.</p></div><button id="open-user" class="primary" type="button">+ Nouvel utilisateur</button></div>
+          <div class="card users-card"><h3>Comptes actifs</h3><ul id="users-list" class="users-list"></ul></div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <dialog id="upload-dialog" class="modal"><form id="upload-form" method="dialog" class="modal-card"><button type="button" class="modal-close" data-close="upload-dialog" aria-label="Fermer">×</button><p class="eyebrow">NOUVEAU DOCUMENT</p><h2>Téléverser un fichier</h2><p class="muted">Ajoutez un document à votre espace sécurisé.</p><label for="file-input" class="dropzone"><span class="drop-icon">↑</span><strong>Choisir un fichier</strong><small>Tout type de fichier accepté</small><input id="file-input" type="file" required></label><div class="modal-actions"><button type="button" class="secondary" data-close="upload-dialog">Annuler</button><button type="submit" class="primary">Téléverser</button></div></form></dialog>
+  <dialog id="user-dialog" class="modal"><form id="user-form" method="dialog" class="modal-card"><button type="button" class="modal-close" data-close="user-dialog" aria-label="Fermer">×</button><p class="eyebrow">NOUVEAU COMPTE</p><h2>Ajouter un utilisateur</h2><p class="muted">Créez un accès sécurisé pour un membre.</p><label for="new-username">Identifiant<input id="new-username" required maxlength="64" pattern="[A-Za-z0-9_.-]+" autocomplete="off"></label><label for="new-password">Mot de passe<input id="new-password" type="password" required minlength="8" autocomplete="new-password"></label><label for="new-role">Rôle<select id="new-role"><option value="user">Utilisateur</option><option value="admin">Administrateur</option></select></label><p id="user-error" class="error" role="alert" hidden></p><div class="modal-actions"><button type="button" class="secondary" data-close="user-dialog">Annuler</button><button type="submit" class="primary">Créer le compte</button></div></form></dialog>
+  <ul id="toasts" aria-live="polite"></ul>
+  <script src="/static/app.js"></script>
+</body>
+</html>

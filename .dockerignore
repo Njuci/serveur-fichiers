@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__
+*.pyc
+tests
+rapport
+storage
+data/files_meta.json
+*.log
+*.aux
+*.out
+*.pdf
+.env

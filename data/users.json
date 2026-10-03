@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "username": "alice",
+      "role": "user",
+      "password_hash": "scrypt$16384$8$1$hW5r5g5fC0iPuEldgNXeyw==$mDTos38QAXdWzZ/hekcViAj87Hd6dkeVCQk94zfu/kM="
+    },
+    {
+      "username": "bob",
+      "role": "user",
+      "password_hash": "scrypt$16384$8$1$THDVp1u8NE6gw1pS/ob/oQ==$flXKzDDz4M2hZ7OkJ2BTdASfwnhKc2hoWG8zCc774es="
+    },
+    {
+      "username": "admin",
+      "role": "admin",
+      "password_hash": "scrypt$16384$8$1$BmLShNTBvphZsO8TsGPPBg==$uW9kCdNO1uHW+EThsvsf8FbsmgqKsH6jSKVDl9JJAKQ="
+    },
+    {
+      "username": "jean",
+      "role": "admin",
+      "password_hash": "scrypt$16384$8$1$+6JA7WZY5niXb8y95c0JdQ==$9MwyFE7kWnYVBBcmtrEeb4ZmOXAz2uFIP5hJstSg4mM="
+    }
+  ]
+}
