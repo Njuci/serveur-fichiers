@@ -14,7 +14,8 @@ guard = LoginGuard()
 @router.post("/login", response_model=TokenResponse)
 def login(body: LoginRequest, request: Request) -> TokenResponse:
     client_ip = request.client.host if request.client else "inconnu"
-    key = f"{client_ip}|{body.username.lower()}"
+    username = body.username.strip()
+    key = f"{client_ip}|{username.lower()}"
 
     if guard.is_blocked(key):
         raise HTTPException(
@@ -23,7 +24,7 @@ def login(body: LoginRequest, request: Request) -> TokenResponse:
             headers={"Retry-After": str(config.LOGIN_WINDOW_SECONDS)},
         )
 
-    user = users.authenticate(body.username, body.password)
+    user = users.authenticate(username, body.password)
     if user is None:
         guard.register_failure(key)
         # Même message que l'utilisateur existe ou non.

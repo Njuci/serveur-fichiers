@@ -77,6 +77,14 @@ class ApiTests(unittest.TestCase):
         self.assertEqual((body["username"], body["role"]), ("root", "admin"))
         self.assertGreater(body["expires_in"], 0)
 
+    def test_login_trims_username_without_trimming_password(self):
+        response = self.client.post(
+            "/login",
+            json={"username": "  alice  ", "password": "motdepasse-alice"},
+        )
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json()["username"], "alice")
+
     def test_login_wrong_password_and_unknown_user_look_identical(self):
         wrong = self.client.post("/login", json={"username": "alice", "password": "non"})
         unknown = self.client.post("/login", json={"username": "zoe", "password": "non"})
@@ -90,6 +98,16 @@ class ApiTests(unittest.TestCase):
             "/login", json={"username": "alice", "password": "motdepasse-alice"}
         )
         self.assertEqual(response.status_code, 429)
+
+    def test_user_management_is_admin_only(self):
+        response = self.client.get("/users", headers=self.auth("alice"))
+        self.assertEqual(response.status_code, 403)
+        response = self.client.post(
+            "/users",
+            headers=self.auth("alice"),
+            json={"username": "new-user", "password": "motdepasse-new", "role": "user"},
+        )
+        self.assertEqual(response.status_code, 403)
 
     # --- authentification des routes ----------------------------------------
 

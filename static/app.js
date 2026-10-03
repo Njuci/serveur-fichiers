@@ -319,6 +319,7 @@ document.querySelectorAll("[data-close]").forEach((button) => {
 });
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => {
+    if (button.dataset.view === "admin-panel" && state.role !== "admin") return;
     document.querySelectorAll(".view-section").forEach((section) => {
       section.hidden = section.id !== button.dataset.view;
     });
