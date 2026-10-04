@@ -1,7 +1,7 @@
 """Crée ou met à jour un utilisateur dans data/users.json.
 
 Usage :
-    python -m scripts.create_user alice --role user
+    python -m scripts.create_user nouvel-utilisateur --role user
     python -m scripts.create_user admin --role admin
 
 Le mot de passe est demandé de façon interactive (non affiché), puis haché

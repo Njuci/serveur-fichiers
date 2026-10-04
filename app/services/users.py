@@ -1,7 +1,7 @@
 """Accès aux utilisateurs, stockés dans data/users.json.
 
 Format du fichier :
-    {"users": [{"username": "alice", "role": "user", "password_hash": "scrypt$..."}]}
+    {"users": [{"username": "bob", "role": "user", "password_hash": "scrypt$..."}]}
 """
 
 import json

@@ -34,14 +34,13 @@ Comptes de démonstration fournis dans `data/users.json` :
 
 | Utilisateur | Mot de passe  | Rôle  |
 |-------------|---------------|-------|
-| alice       | `Alice#2026!` | user  |
 | bob         | `Bob#2026!`   | user  |
 | admin       | `Admin#2026!` | admin |
 
 **Changer ces mots de passe avant tout déploiement public.**
 
 ```bash
-python -m scripts.create_user alice --role user     # demande le mot de passe, le hache, l'enregistre
+python -m scripts.create_user nouvel-utilisateur --role user     # demande le mot de passe, le hache, l'enregistre
 ```
 
 ## Variables d'environnement

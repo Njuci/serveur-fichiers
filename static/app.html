@@ -21,7 +21,7 @@
       <div class="workspace">
         <header class="topbar">
           <div><p class="eyebrow">ESPACE DE TRAVAIL</p><h1 id="view-title">Vue d'ensemble</h1></div>
-          <div class="account"><span id="whoami"></span><span id="live" class="live off">hors ligne</span><button id="logout" type="button" class="secondary">Déconnexion</button></div>
+          <div class="account"><span id="whoami"></span><span id="live" class="live off">hors ligne</span><button id="notifications-toggle" class="notification-trigger" type="button" popovertarget="notifications-panel" aria-label="Notifications" aria-controls="notifications-panel"><span aria-hidden="true">🔔</span><span id="notification-count" class="notification-count" hidden>0</span></button><button id="logout" type="button" class="secondary">Déconnexion</button></div>
         </header>
         <section id="dashboard" class="view-section">
           <div class="welcome-row"><div><h2>Bonjour, <span id="welcome-name"></span> 👋</h2><p class="muted">Voici un aperçu de votre espace.</p></div><button id="open-upload-dashboard" class="primary" type="button">+ Ajouter un fichier</button></div>
@@ -46,6 +46,11 @@
   </main>
   <dialog id="upload-dialog" class="modal"><form id="upload-form" method="dialog" class="modal-card"><button type="button" class="modal-close" data-close="upload-dialog" aria-label="Fermer">×</button><p class="eyebrow">NOUVEAU DOCUMENT</p><h2>Téléverser un fichier</h2><p class="muted">Ajoutez un document à votre espace sécurisé.</p><label for="file-input" class="dropzone"><span class="drop-icon">↑</span><strong>Choisir un fichier</strong><small>Tout type de fichier accepté</small><input id="file-input" type="file" required></label><div class="modal-actions"><button type="button" class="secondary" data-close="upload-dialog">Annuler</button><button type="submit" class="primary">Téléverser</button></div></form></dialog>
   <dialog id="user-dialog" class="modal"><form id="user-form" method="dialog" class="modal-card"><button type="button" class="modal-close" data-close="user-dialog" aria-label="Fermer">×</button><p class="eyebrow">NOUVEAU COMPTE</p><h2>Ajouter un utilisateur</h2><p class="muted">Créez un accès sécurisé pour un membre.</p><label for="new-username">Identifiant<input id="new-username" required maxlength="64" pattern="[A-Za-z0-9_.-]+" autocomplete="off"></label><label for="new-password">Mot de passe<input id="new-password" type="password" required minlength="8" autocomplete="new-password"></label><label for="new-role">Rôle<select id="new-role"><option value="user">Utilisateur</option><option value="admin">Administrateur</option></select></label><p id="user-error" class="error" role="alert" hidden></p><div class="modal-actions"><button type="button" class="secondary" data-close="user-dialog">Annuler</button><button type="submit" class="primary">Créer le compte</button></div></form></dialog>
+  <section id="notifications-panel" class="notifications-panel" popover="manual" aria-labelledby="notifications-title">
+    <div class="notifications-head"><h2 id="notifications-title">Notifications</h2><button id="notifications-close" class="modal-close" type="button" popovertarget="notifications-panel" popovertargetaction="hide" aria-label="Fermer">×</button></div>
+    <button id="notifications-read" class="secondary notifications-read" type="button">Tout marquer comme lu</button>
+    <ul id="notifications-list" class="notifications-list"><li class="notifications-empty">Aucune notification pour le moment.</li></ul>
+  </section>
   <ul id="toasts" aria-live="polite"></ul>
   <script src="/static/app.js"></script>
 </body>

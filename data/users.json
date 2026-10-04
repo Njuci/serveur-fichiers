@@ -1,11 +1,6 @@
 {
   "users": [
     {
-      "username": "alice",
-      "role": "user",
-      "password_hash": "scrypt$16384$8$1$hW5r5g5fC0iPuEldgNXeyw==$mDTos38QAXdWzZ/hekcViAj87Hd6dkeVCQk94zfu/kM="
-    },
-    {
       "username": "bob",
       "role": "user",
       "password_hash": "scrypt$16384$8$1$THDVp1u8NE6gw1pS/ob/oQ==$flXKzDDz4M2hZ7OkJ2BTdASfwnhKc2hoWG8zCc774es="

@@ -9,6 +9,8 @@ const state = {
   socket: null,
   retryTimer: null,
   socketGeneration: 0,
+  notifications: [],
+  unreadNotifications: 0,
 };
 
 // --- Session (sessionStorage : effacée à la fermeture de l'onglet) ----------
@@ -54,16 +56,54 @@ function formatSize(bytes) {
   return `${(bytes / 1024 / 1024).toFixed(1)} Mo`;
 }
 
-function toast(message) {
+function toast(message, type = "info") {
   const item = document.createElement("li");
-  item.textContent = message;          // textContent : jamais d'HTML injecté
-  $("#toasts").appendChild(item);
-  setTimeout(() => item.remove(), 4000);
+  item.className = `toast toast-${type}`;
+  item.setAttribute("role", "status");
+  item.textContent = message;
+  $("#toasts").prepend(item);
+  setTimeout(() => item.remove(), 5000);
+}
+
+function renderNotifications() {
+  const list = $("#notifications-list");
+  list.replaceChildren();
+  if (!state.notifications.length) {
+    const empty = document.createElement("li");
+    empty.className = "notifications-empty";
+    empty.textContent = "Aucune notification pour le moment.";
+    list.appendChild(empty);
+  } else {
+    for (const notification of state.notifications) {
+      const item = document.createElement("li");
+      item.className = `notification-item${notification.unread ? " unread" : ""}`;
+      item.textContent = notification.message;
+      list.appendChild(item);
+    }
+  }
+  const count = $("#notification-count");
+  count.textContent = state.unreadNotifications > 99 ? "99+" : state.unreadNotifications;
+  count.hidden = state.unreadNotifications === 0;
+}
+
+function addNotification(event) {
+  const message = describe(event);
+  state.notifications.unshift({ message, unread: true });
+  state.notifications = state.notifications.slice(0, 20);
+  state.unreadNotifications += 1;
+  renderNotifications();
+  toast(message, event.event);
+}
+
+function markNotificationsRead() {
+  state.notifications.forEach((notification) => { notification.unread = false; });
+  state.unreadNotifications = 0;
+  renderNotifications();
 }
 
 async function api(path, options = {}) {
   const headers = new Headers(options.headers || {});
-  headers.set("Authorization", `Bearer ${state.token}`);
+  headers.set("Authorization", "Bearer " + state.token);
   const response = await fetch(path, { ...options, headers });
   if (response.status === 401) {
     logout("Session expirée, reconnectez-vous.");
@@ -266,7 +306,8 @@ function connectSocket() {
   socket.addEventListener("open", () => setLive(true));
   socket.addEventListener("message", (message) => {
     try {
-      toast(describe(JSON.parse(message.data)));
+      const event = JSON.parse(message.data);
+      addNotification(event);
     } catch (_) { /* message inattendu */ }
     refreshFiles();                      // la liste se met à jour toute seule
   });
@@ -314,6 +355,8 @@ $("#open-upload").addEventListener("click", () => openDialog("upload-dialog"));
 $("#open-upload-dashboard").addEventListener("click", () => openDialog("upload-dialog"));
 $("#open-upload-quick").addEventListener("click", () => openDialog("upload-dialog"));
 $("#open-user").addEventListener("click", () => openDialog("user-dialog"));
+$("#notifications-toggle").addEventListener("click", markNotificationsRead);
+$("#notifications-read").addEventListener("click", markNotificationsRead);
 document.querySelectorAll("[data-close]").forEach((button) => {
   button.addEventListener("click", () => closeDialog(button.dataset.close));
 });
